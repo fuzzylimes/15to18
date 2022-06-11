@@ -12,22 +12,21 @@ func main() {
 	}
 	input := os.Args[1]
 	if len(input) != 15 && len(input) != 18 {
-		fmt.Println("Invalid input. Must be either 15 or 18 characters")
+		fmt.Println("Invalid input - must be either 15 or 18 characters")
 		os.Exit(1)
 	}
-	var output string
 
-	if len(input) == 18 {
-		output = input
-	} else {
-		output = Convert(input)
-	}
+	output := Convert(input)
 
 	fmt.Println("SF-15:", output[:15])
 	fmt.Println("SF-18:", output)
 }
 
 func Convert(input string) string {
+	if len(input) == 18 {
+		return input
+	}
+
 	sum := ""
 	for i := 0; i < 3; i++ {
 		loop := 0
