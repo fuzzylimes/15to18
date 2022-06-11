@@ -1,25 +1,29 @@
-package main
+package sf15to18
 
 import (
-	"fmt"
 	"os"
+	"regexp"
+	"strings"
 )
 
-func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("Must provide SF Id")
-		os.Exit(1)
+func check(e error) {
+	if e != nil {
+		panic(e)
 	}
-	input := os.Args[1]
-	if len(input) != 15 && len(input) != 18 {
-		fmt.Println("Invalid input - must be either 15 or 18 characters")
-		os.Exit(1)
+}
+
+func HandleArgs(source string, args []string) []string {
+	if source != "" {
+		dat, err := os.ReadFile(source)
+		check(err)
+		args = []string{string(dat)}
 	}
+	return args
+}
 
-	output := Convert(input)
-
-	fmt.Println("SF-15:", output[:15])
-	fmt.Println("SF-18:", output)
+func GetValidIds(in []string) []string {
+	r, _ := regexp.Compile("([a-zA-Z0-9]{15})")
+	return r.FindAllString(strings.Join(in, " "), -1)
 }
 
 func Convert(input string) string {

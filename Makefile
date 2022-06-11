@@ -3,17 +3,21 @@ GOCMD=go
 GORUN=$(GOCMD) run
 GOBUILD=$(GOCMD) build
 GOTEST=$(GOCMD) test
-MAIN="./15to18.go"
+MAIN="cmd/15to18.go"
 BINARY_NAME="bin/15to18"
+FILE_NAME=15to18
 
 build:
 	$(GOBUILD) -o $(BINARY_NAME) -v $(MAIN)
 
-test:
-	$(GOTEST) -v ./
+tests:
+	$(GOTEST) -v ./...
+
+coverage:
+	$(GOTEST) -v -cover ./...
 
 run:
-	$(GORUN) cmd/gohltb/main.go
+	$(GORUN) $(MAIN) $(ARGS)
 
 compile:
 	# 64-Bit
@@ -25,3 +29,9 @@ compile:
 	GOOS=linux GOARCH=amd64 $(GOBUILD) -o ${BINARY_NAME}-linux-amd64 $(MAIN)
 	# Windows
 	GOOS=windows GOARCH=amd64 $(GOBUILD) -o ${BINARY_NAME}-windows-amd64 $(MAIN)
+
+clean:
+	rm bin/${FILE_NAME}-darwin-amd64
+	rm bin/${FILE_NAME}-darwin-arm64
+	rm bin/${FILE_NAME}-linux-amd64
+	rm bin/${FILE_NAME}-windows-amd64

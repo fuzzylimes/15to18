@@ -1,0 +1,16 @@
+{
+  "environment": [
+    {
+      "name": "dev",
+      "id": "a124t000000KDCA"
+    },
+    {
+      "name": "qa",
+      "id": "001i000001AWbWu"
+    },
+    {
+      "name": "prod",
+      "id": "5003000000D8cuI"
+    }
+  ]
+}
